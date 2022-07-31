@@ -4,9 +4,9 @@ export default function Home() {
   const mapSideEffectRef = useRef();
 
   useEffect(() => {
-    const promiseShouldBeWaited = mapSideEffectRef.current ?? Promise.resolve();
+    const promiseShouldBeWaited = mapSideEffectRef.current ?? Promise.resolve(); // the previous cleanup is async, has to wait for that before running the next effect
     const mapInstancePromise = promiseShouldBeWaited
-      .then(() => import("leaflet"))
+      .then(() => import("leaflet")) // because the leaflet library access window
       .then(({ map }) => {
         return map("map");
       });
